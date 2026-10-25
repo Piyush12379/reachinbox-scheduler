@@ -9,7 +9,8 @@
     "start": "node dist/server.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name init",
-    "prisma:push": "prisma db push"
+    "prisma:push": "prisma db push",
+    "test:load": "ts-node src/scripts/load-test.ts"
   },
   "dependencies": {
     "@bull-board/api": "^6.7.1",

@@ -13,6 +13,7 @@ export const ComposeModal: React.FC<ComposeModalProps> = ({
   onClose,
   onScheduledSuccess,
 }) => {
+  const [sender, setSender] = useState('outreach@reachinbox.ai');
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
   const [recipientsText, setRecipientsText] = useState('');
@@ -90,6 +91,7 @@ export const ComposeModal: React.FC<ComposeModalProps> = ({
     setIsSubmitting(true);
     try {
       await api.scheduleEmails({
+        sender,
         recipients: leads,
         subject,
         body,
@@ -189,6 +191,36 @@ export const ComposeModal: React.FC<ComposeModalProps> = ({
                 rows={2}
                 className="w-full bg-[#151926] border border-[#222838] focus:border-indigo-500 focus:outline-none p-2.5 rounded-xl text-white placeholder-slate-500 font-mono text-[11px]"
               />
+            </div>
+          </div>
+
+          {/* Sender Account (Multi-Sender Support) */}
+          <div>
+            <label className="block text-slate-300 font-semibold mb-1.5 flex items-center justify-between">
+              <span>Sender Account (Multi-Sender Support)</span>
+              <span className="text-[10px] text-indigo-400 font-mono">Independent Hourly Quotas</span>
+            </label>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {[
+                'outreach@reachinbox.ai',
+                'growth@reachinbox.ai',
+                'enterprise@reachinbox.ai',
+                'sales@reachinbox.ai',
+              ].map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => setSender(s)}
+                  className={`py-1.5 px-2 rounded-lg text-[11px] font-mono border transition text-center truncate ${
+                    sender === s
+                      ? 'bg-indigo-600/20 border-indigo-500 text-indigo-300 font-bold'
+                      : 'bg-[#151926] border-[#262C40] text-slate-400 hover:text-white'
+                  }`}
+                  title={s}
+                >
+                  {s.split('@')[0]}@
+                </button>
+              ))}
             </div>
           </div>
 
