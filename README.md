@@ -230,6 +230,4 @@ reachinbox-scheduler/
 
 ---
 
-## 🤝 Submission Contacts & Access
-* **GitHub Access**: Invited `mitrajit` and `Yadav036` to repository.
-* **Submission Form**: [ClickUp Form Link](https://forms.clickup.com/9005062261/f/8cbwp3n-8876/6NNNJ92DV93PQTAYST)
+
