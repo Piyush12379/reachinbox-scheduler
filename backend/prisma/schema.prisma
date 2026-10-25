@@ -1,0 +1,48 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model EmailJob {
+  id           String    @id @default(uuid())
+  jobId        String    @unique
+  sender       String    @default("outreach@reachinbox.ai")
+  recipient    String
+  subject      String
+  body         String
+  status       String    @default("SCHEDULED") // SCHEDULED, PROCESSING, SENT, FAILED, RESCHEDULED
+  scheduledFor DateTime
+  sentAt       DateTime?
+  previewUrl   String?
+  errorMessage String?
+  batchId      String?
+  retryCount   Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([status])
+  @@index([scheduledFor])
+  @@index([sender])
+}
+
+model User {
+  id        String   @id @default(uuid())
+  googleId  String?  @unique
+  email     String   @unique
+  name      String
+  avatar    String?
+  createdAt DateTime @default(now())
+}
+
+model SlackConfig {
+  id          String   @id @default(uuid())
+  userId      String   @unique @default("default-user")
+  webhookUrl  String?
+  channel     String?
+  isConnected Boolean  @default(false)
+  updatedAt   DateTime @updatedAt
+}
